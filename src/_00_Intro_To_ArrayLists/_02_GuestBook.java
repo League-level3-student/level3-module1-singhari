@@ -1,5 +1,9 @@
 package _00_Intro_To_ArrayLists;
 
+import java.util.*;
+
+import javax.swing.*;
+
 public class _02_GuestBook {
     /*
      * Create a GUI with two buttons. One button reads "Add Name" and the other
@@ -13,5 +17,9 @@ public class _02_GuestBook {
      * Guest #3: Greg Ganders
      * Guest #4: Donny Doners
      */
-
+	JFrame frame;
+	JLabel lab;
+	ArrayList nameList;
+	
+	
 }
