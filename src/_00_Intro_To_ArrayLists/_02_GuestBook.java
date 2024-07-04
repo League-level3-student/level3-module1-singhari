@@ -1,10 +1,12 @@
 package _00_Intro_To_ArrayLists;
 
+import java.awt.*;
+import java.awt.event.*;
 import java.util.*;
 
 import javax.swing.*;
 
-public class _02_GuestBook {
+public class _02_GuestBook implements ActionListener{
     /*
      * Create a GUI with two buttons. One button reads "Add Name" and the other
      * button reads "View Names". When the add name button is clicked, display
@@ -17,9 +19,64 @@ public class _02_GuestBook {
      * Guest #3: Greg Ganders
      * Guest #4: Donny Doners
      */
+	//JFrame frame;
+//	JLabel lab;
+	ArrayList<String> nameList = new ArrayList<String>();
+	JButton addNames;
+	JButton viewNames;
+	String input;
 	JFrame frame;
 	JLabel lab;
-	ArrayList nameList;
+	int frameWidth = 500;
+	int frameHeight = 500;
+	
+	public static void main(String[] args) {
+//		JFrame frame = new JFrame();
+//		JLabel lab = new JLabel();
+//		addNames = new JButton("Add Names");
+//		viewNames = new JButton("View Names");
+//		lab.add(addNames);
+//		lab.add(viewNames);
+//		frame.add(lab);
+//		frame.pack();
+		_02_GuestBook gb = new _02_GuestBook();
+		gb.setup();
+		
+	}
+	
+	public void setup() {
+		frame = new JFrame();
+		frame.setPreferredSize(new Dimension(frameWidth, frameHeight));
+		lab = new JLabel();
+//	setPreferredSize(new Dimension(frameWidth, frameHeight));
+		addNames = new JButton("Add Names");
+		viewNames = new JButton("View Names");
+		frame.setVisible(true);
+		addNames.setVisible(true);
+		viewNames.setVisible(true);
+		lab.add(addNames);
+		lab.add(viewNames);
+		frame.add(lab);
+		frame.pack();
+	//nameList = new ArrayList<String>();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		int k = 0;
+		if(e.getSource() == addNames) {
+		input = "";
+		input = JOptionPane.showInputDialog(input);
+		nameList.add(input);
+		}
+		else if(e.getSource() == viewNames) {
+			for(String name : nameList) {
+				input = "Guest " + k+": "+name + "\n";
+			}
+			JOptionPane.showMessageDialog(null, input);
+		}
+	}
 	
 	
 }
