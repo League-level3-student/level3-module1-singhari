@@ -1,6 +1,7 @@
 package _05_Retro_Sun;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import processing.core.PApplet;
 
@@ -13,7 +14,9 @@ import processing.core.PApplet;
 public class RetroSun extends PApplet {
     static final int WIDTH = 800;
     static final int HEIGHT = 600;
-
+    float y;
+    float h;
+    ArrayList<Rectangle> sections = new ArrayList<Rectangle>();
     // RGB colors
     int[] sunColors = {
             color(212, 202, 11), color(214, 198, 30), color(211, 170, 26),
@@ -21,26 +24,40 @@ public class RetroSun extends PApplet {
             color(212, 51, 98), color(215, 29, 121), color(217, 11, 139),
             color(217, 0, 151) };
 
-    int bgColor = color(31, 0, 48);
-
     @Override
     public void settings() {
         // 1. Set the size of your sketch to at least 800 width, 600 height
         setSize(WIDTH, HEIGHT);
+        y= width/2;
+        h = 40;
+        float x = WIDTH/2 - 200;
+      // *The width can be 2 times the; radius
+        float w = 2 * 200;
+        for(int k =0; k < 5; k++) {
+        sections.add(new Rectangle(x,y+(50*k),w,h));
+        }
     }
 
-    @Override
+    int bgColor = color(31, 0, 48);
+
+	@Override
     public void setup() {
         // 2. Set bgColor as the background color
         background(bgColor);
     }
-
+	
     @Override
     public void draw() {
+    	 background(bgColor);
         /*
          * PART 1: Drawing the sun
          */
-
+    	 String s = "";
+    	 for(Rectangle r : sections) {
+    		 s+= r.y + " ";
+    		 
+    	 }
+    	 System.out.println(s);
         // Draw an ellipse for the sun in the center of the window
         // Use fill(sunColors[0]) to make it yellow
         // Use noStroke() to remove the black outline
@@ -63,11 +80,15 @@ public class RetroSun extends PApplet {
     	loadPixels();
         // We want to change the color of our sun so use an if statement
         // to check if the pixel is the color of the yellow circle.
-    	for(int i = 0; i<pixels[i]; i++) {
-    	//	if(pixels[i] == Color.yellow) {
-    			
-    	//	}
+    	for(int i = 0; i<pixels.length; i++) {
+    		if(pixels[i] == sunColors[0]) {
+    			int y = i/WIDTH;
+    			float step = map(y, (HEIGHT/2)-200, (HEIGHT/2)+200, 0, 1);
+    			pixels[i] = interpolateColor(sunColors, step);
+    		}
+    		
     	}
+    	updatePixels();
         // If pixel[i] is the same color as the color of our circle (sunColors[0]),
         // we need to map the pixel to a color in our sunColors[] array
         // (see 2nd gradient image in RetroSun.html)
@@ -89,7 +110,7 @@ public class RetroSun extends PApplet {
         // Call updatePixels() after your loop through all the pixels to
         // update the pixel colors
         // https://processing.org/reference/updatePixels_.html
-
+    	
         
         /*
          * PART 3: Drawing the missing sections at the bottom of the sun
@@ -99,16 +120,29 @@ public class RetroSun extends PApplet {
          */
 
         // Set the fill color to the background color
-
+    	fill(255,255,255);
         // To draw each rectangle we need to find its x, y, width, height
         // *The y position can be any value within the sun:
-        //  float y = width / 2;
-        // *The height can be any value you choose:
-        //  float h = 40;
-        // *The x position can be the center of the sun's x position minus the radius:
-        //  float x = sunCenterX - sunRadius
-        // *The width can be 2 times the radius
-        //  float w = 2 * sunRadius
+//        float x = WIDTH/2 - 200;
+      // *The width can be 2 times the; radius
+//        float w = 2 * 200;
+        
+          //rect(x,y,w,h);
+          for(Rectangle r : sections) {
+        	  if(r.h <=0) {
+          		r.y = 600;
+          		r.h = 40;
+          	}
+          	else{
+          		r.y--;
+          	}
+          
+              // *The height can be any value you choose:
+          			
+                r.h -= frameCount%4==0 && r.h > 0 && r.y < 500? 1: 0;
+              // *The x position can be the center of the sun's x position minus the radius:
+              rect(r.x,r.y,r.w,r.h);
+          }
         
         // Do you see a section missing from the sun like in the 3rd image?
 
