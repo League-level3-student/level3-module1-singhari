@@ -1,5 +1,7 @@
 package _05_Retro_Sun;
 
+import java.awt.Color;
+
 import processing.core.PApplet;
 
 /*
@@ -24,13 +26,13 @@ public class RetroSun extends PApplet {
     @Override
     public void settings() {
         // 1. Set the size of your sketch to at least 800 width, 600 height
-        
+        setSize(WIDTH, HEIGHT);
     }
 
     @Override
     public void setup() {
         // 2. Set bgColor as the background color
-        
+        background(bgColor);
     }
 
     @Override
@@ -45,21 +47,27 @@ public class RetroSun extends PApplet {
 
         // Do you see a yellow sun like in the 1st image?
         // If not, fix your code before proceeding.
-
+    	fill(sunColors[0]);
+    	noStroke();
+    	ellipse(WIDTH/2,HEIGHT/2,400,400);
         
         /*
          * PART 2: Drawing a color gradient on the sun
          *
          * This will make the sun have gradually different colors from the top to bottom
          */
-
+    	
         // Call the loadPixels() method to put all the pixel colors into
         // the pixels[] array
         // https://processing.org/reference/loadPixels_.html
-
+    	loadPixels();
         // We want to change the color of our sun so use an if statement
         // to check if the pixel is the color of the yellow circle.
-
+    	for(int i = 0; i<pixels[i]; i++) {
+    	//	if(pixels[i] == Color.yellow) {
+    			
+    	//	}
+    	}
         // If pixel[i] is the same color as the color of our circle (sunColors[0]),
         // we need to map the pixel to a color in our sunColors[] array
         // (see 2nd gradient image in RetroSun.html)
