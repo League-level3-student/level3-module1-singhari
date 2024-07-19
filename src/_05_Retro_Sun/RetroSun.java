@@ -120,7 +120,8 @@ public class RetroSun extends PApplet {
          */
 
         // Set the fill color to the background color
-    	fill(255,255,255);
+    //	fill(255,255,255);
+    	fill(bgColor);
         // To draw each rectangle we need to find its x, y, width, height
         // *The y position can be any value within the sun:
 //        float x = WIDTH/2 - 200;
@@ -129,7 +130,7 @@ public class RetroSun extends PApplet {
         
           //rect(x,y,w,h);
           for(Rectangle r : sections) {
-        	  if(r.h <=0) {
+        	  if(r.y <=200) {
           		r.y = 600;
           		r.h = 40;
           	}
