@@ -2,6 +2,8 @@ package _08_California_Weather;
 
 import java.util.HashMap;
 
+import javax.swing.*;
+
 /*
  * OBJECTIVE:
  * 1. Create a program that allows the user to search for the weather
@@ -31,15 +33,24 @@ public class CaliforniaWeather {
     
     void start() {
         HashMap<String, WeatherData> weatherData = Utilities.getWeatherData();
-        
+        String userWant = JOptionPane.showInputDialog("Would you like to see weather data for a given city, all cities with a speific weather, or find a city within a range of temperatures?");
+       if(userWant.toLowerCase().contains("given city")){
+           String cityName = Utilities.capitalizeWords( JOptionPane.showInputDialog("City name?") );
+           WeatherData datum = weatherData.get(cityName);
+           
+           if( datum == null ) {
+               System.out.println("Unable to find weather data for: " + cityName);
+           } else {
+               System.out.println(cityName + " is " + datum.weatherSummary + " with a temperature of " + datum.temperatureF + " F");
+           }  
+       }
+       else if(userWant.toLowerCase().contains("weather")) {
+    	   
+       }
+       else if(userWant.toLowerCase().contains("temperatures")) {
+    	   
+       }
         // All city keys have the first letter capitalized of each word
-        String cityName = Utilities.capitalizeWords( "National City" );
-        WeatherData datum = weatherData.get(cityName);
-        
-        if( datum == null ) {
-            System.out.println("Unable to find weather data for: " + cityName);
-        } else {
-            System.out.println(cityName + " is " + datum.weatherSummary + " with a temperature of " + datum.temperatureF + " F");
-        }
+
     }
 }

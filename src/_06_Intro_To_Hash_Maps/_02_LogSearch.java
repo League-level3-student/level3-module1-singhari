@@ -1,24 +1,69 @@
 package _06_Intro_To_Hash_Maps;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 
 import javax.swing.*;
 
-public class _02_LogSearch {
-	  public static void main(String[] args) {
-		  HashMap<Integer, String> log = new HashMap<Integer, String>();
-		  JFrame f = new JFrame();
+public class _02_LogSearch implements ActionListener {
+	HashMap<Integer, String> log = new HashMap<Integer, String>();
+	
+	   JButton add = new JButton("Add entry");  
+	   JButton search = new JButton("Search by ID");
+	   JButton view = new JButton("View List");
+	  
+	 
+	 public void setup() {
+		 JFrame f = new JFrame();
 		  JPanel p = new JPanel();
-		  JButton add = new JButton("Add entry");
-		  add.addActionListener(null);
-		  JButton search = new JButton("Search by ID");
-		  search.addActionListener(null);
-		  JButton view = new JButton("View List");
-		  view.addActionListener(null);
+		  add.addActionListener(this);
+		  search.addActionListener(this);
+		  view.addActionListener(this);
+		  p.add(add);
+		  p.add(search);
+		  p.add(view);
 		  
+		 // p.add();
+		  f.add(p);
+		  f.pack();
+		  f.setVisible(true);
+	 }
+	  
+	 public static void main(String[] args){
+		 _02_LogSearch l = new _02_LogSearch();
+		 l.setup();
 	  }
-
+	 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource() == add) {
+			String idString = JOptionPane.showInputDialog("Pick an id number");
+			int id = Integer.parseInt(idString);
+			String name = JOptionPane.showInputDialog("Pick an name");
+			log.put(id, name);
+		}
+		else if(e.getSource() == search) {
+			String idString = JOptionPane.showInputDialog("Input ID number");
+			int id = Integer.parseInt(idString);
+			if(log.containsKey(id)) {
+				JOptionPane.showMessageDialog(null, "The person you are looking for is: "+log.get(id));
+			}
+			else {
+				
+			}
+		}
+		else if(e.getSource() == view) {
+			String list = "";
+			for(int s : log.keySet()) {
+				list+="ID: "+s+ "    Name: "+log.get(s)+"\n";
+			}
+			JOptionPane.showMessageDialog(null, list);
+		}
+	}
+	  	
     /*
      * Crate a HashMap of Integers for the keys and Strings for the values.
      * Create a GUI with three buttons.
