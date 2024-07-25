@@ -1,8 +1,10 @@
 package _08_California_Weather;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 /*
  * OBJECTIVE:
@@ -30,29 +32,52 @@ import javax.swing.*;
  */
 
 public class CaliforniaWeather {
-    
-    void start() {
-        HashMap<String, WeatherData> weatherData = Utilities.getWeatherData();
-        String userWant = JOptionPane.showInputDialog("Would you like to see weather data for a given city, all cities with a speific weather, or find a city within a range of temperatures?");
-       if(userWant.toLowerCase().contains("given city")){
-           String cityName = Utilities.capitalizeWords( JOptionPane.showInputDialog("City name?") );
-           WeatherData datum = weatherData.get(cityName);
-           
-           if( datum == null ) {
-               System.out.println("Unable to find weather data for: " + cityName);
-           } else {
-               System.out.println(cityName + " is " + datum.weatherSummary + " with a temperature of " + datum.temperatureF + " F");
-           }  
-       }
-       else if(userWant.toLowerCase().contains("weather")) {
-    	   String desiredWeather = JOptionPane.showInputDialog("Which weather would you like?");
-    	   String[] citiesThatWork;
-    	   
-       }
-       else if(userWant.toLowerCase().contains("temperature")) {
-    	   String desiredTemp = JOptionPane.showInputDialog("Which temeperature would you like?");
-       }
-        // All city keys have the first letter capitalized of each word
 
-    }
+	void start() {
+		HashMap<String, WeatherData> weatherData = Utilities.getWeatherData();
+		String userWant = JOptionPane.showInputDialog(
+				"Would you like to see weather data for a given city, all cities with a speific weather, or find a city within a range of temperatures?");
+		if (userWant.toLowerCase().contains("given city")) {
+			String cityName = Utilities.capitalizeWords(JOptionPane.showInputDialog("City name?"));
+			WeatherData datum = weatherData.get(cityName);
+
+			if (datum == null) {
+				System.out.println("Unable to find weather data for: " + cityName);
+			} else {
+				System.out.println(cityName + " is " + datum.weatherSummary + " with a temperature of "
+						+ datum.temperatureF + " F");
+			}
+		} else if (userWant.toLowerCase().contains("weather")) {
+			String desiredWeather = JOptionPane.showInputDialog("Which weather would you like?");
+			List<String> citiesThatWork = new ArrayList<>();
+			// WeatherData datum;
+			for (String city : weatherData.keySet()) {
+				if (weatherData.get(city).weatherSummary.equalsIgnoreCase(desiredWeather.trim())) {
+					citiesThatWork.add(city);
+				}
+
+			}
+			System.out.println("Cities with a weather of "+desiredWeather+" include:");
+			for(String c : citiesThatWork) {
+				System.out.print(" "+c);
+			}
+
+		} else if (userWant.toLowerCase().contains("temperature")) {
+			String desiredTemp = JOptionPane.showInputDialog("Which temperature would you like?");
+			int desiredTempp = Integer.getInteger(desiredTemp);
+			List<String> citiesThatWork = new ArrayList<>();
+			for (String city : weatherData.keySet()) {
+				if (weatherData.get(city).temperatureF==desiredTempp) {
+					citiesThatWork.add(city);
+				}
+
+			}
+			System.out.println("Cities with a temperature of "+desiredTempp+" include:");
+			for(String c : citiesThatWork) {
+				System.out.print(" "+c);
+			}
+		}
+		// All city keys have the first letter capitalized of each word
+
+	}
 }
