@@ -45,10 +45,12 @@ public class CaliforniaWeather {
            }  
        }
        else if(userWant.toLowerCase().contains("weather")) {
+    	   String desiredWeather = JOptionPane.showInputDialog("Which weather would you like?");
+    	   String[] citiesThatWork;
     	   
        }
-       else if(userWant.toLowerCase().contains("temperatures")) {
-    	   
+       else if(userWant.toLowerCase().contains("temperature")) {
+    	   String desiredTemp = JOptionPane.showInputDialog("Which temeperature would you like?");
        }
         // All city keys have the first letter capitalized of each word
 
